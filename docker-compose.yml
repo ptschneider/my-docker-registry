@@ -1,0 +1,13 @@
+# 
+# this one you have to go to hub.docker.com for...
+#
+version: '3'
+services:
+  registry:
+    image: registry:2.8.3
+    hostname: registry
+    container_name: registry
+    restart: always
+    ports:
+      - 5000:5000
+
