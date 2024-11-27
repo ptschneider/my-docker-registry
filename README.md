@@ -24,10 +24,9 @@ If you are running only on a local LAN, you can skip the SSL rigamarole with:
 
   then: systemctl restart docker
 
-also add:
+If you might encounter DRM-encumbered images from vendors in your world (an uncommon problem); such layers will not be replicated by-default (silently), then also add:
     { "allow-nondistributable-artifacts": ["myregistrydomain.com:5000"] }
 
-    if you might encounter DRM-encumbered images from vendors in your world (an uncommon problem); such layers will not be replicated by-default (silently)
 
 ## Use Local Registry
 
