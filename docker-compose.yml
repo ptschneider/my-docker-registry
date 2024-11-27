@@ -1,13 +1,20 @@
 # 
-# this one you have to go to hub.docker.com for...
+#starting to see weird messages if the version is shown
+#version: '3'
 #
-version: '3'
+# this is kinda expecting /var/lib/registry to be mounted on a dedicated vdisk/lun
+#
 services:
-  registry:
+  registry_cache:
     image: registry:2.8.3
-    hostname: registry
-    container_name: registry
+    hostname: registry_cache
+    container_name: registry_cache
     restart: always
+    environment:
+      REGISTRY_HTTP_ADDR: '0.0.0.0:5001'
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
     ports:
-      - 5000:5000
+      - 5001:5001
+    volumes:
+      - /var/lib/docker-registry-cache:/var/lib/registry
 
