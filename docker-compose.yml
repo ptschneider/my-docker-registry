@@ -1,9 +1,12 @@
+# ==========================================================================
 # 
 #starting to see weird messages if the version is shown
 #version: '3'
 #
 # this is kinda expecting /var/lib/registry to be mounted on a dedicated vdisk/lun
 #
+version: '3.5'
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 services:
   registry_cache:
     image: registry:2.8.3
@@ -17,4 +20,66 @@ services:
       - 5001:5001
     volumes:
       - /var/lib/docker-registry-cache:/var/lib/registry
-
+    networks:
+      default:
+        ipv4_address: 172.27.10.254
+#
+#        ipv4_address: 172.27.10.10
+#
+# re-visited this, transitioning from docker -> nerdctl
+#
+# n.b. you can define any network but those will be
+# distinct from the default network; if you want to
+# change the default network, you do so directly
+# if you see a WARN-IGNORING message, you have an 
+# error in your config
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+networks:
+  default:
+    name: acmenet
+    external: true
+#
+# you can pre-create the network externally with:
+# sudo nerdctl network create --driver=bridge --ipam-driver=default --subnet 172.27.0.0/16 --ip-range 172.27.10.0/24 acmenet
+# sudo nerdctl network create --driver=bridge --ipam-driver=default --subnet 172.27.10.252/30 acmenet
+# and then specify that the default network is an external network named acmenet
+#
+# networks:
+#   default:
+#     name: acmenet
+#     external: true
+# 
+# however, if you want the network lifespan bound to the container, declare all at once
+#
+# networks:
+#   default:
+#     name: acmenet
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.27.10.252/30 
+#         - ip_range: 172.27.10.252/30
+#
+#         - subnet: 172.27.0.0/16 
+#         - ip_range: 172.27.10.0/24
+#
+# /30 is example of 'smallest' increment
+# x.x.10.252/30 gives 64 subnets, 2 addrs per subnet
+# (first addr is consumed by gateway so it really provides only net-one possible addresses)
+#
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+#
+# example that may work; need to learn more about 
+# networking driver options
+#
+# networks:
+#   acmenet:
+#     driver: ipvlan
+#     driver_opts:
+#       parent: eth0
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.27.10.0/24
+#
+# ==========================================================================

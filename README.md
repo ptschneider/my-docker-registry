@@ -98,3 +98,26 @@ Edit the file /etc/docker/registry/config.yml; verify the service name & port ar
 Run the command `registry garbage-collect -m /etc/docker/registry/config.yml` to actually run GC and delete the blobs. You should see a lot of status messages but no errors.
 
 If you don't see a bunch of blobs deleted, something probably went wrong.
+
+#===
+
+allocating IP addresses to container subnets
+
+handy to remember these increments
+
+mask	qty-addr	qty-host	mask			addr blocks
+/30	4		2		255.255.255.252		.0,.4,.8,.12,...
+/29	8		6		255.255.255.248		.0,.8,.16,.24,...
+/28	16		14		255.255.255.240		.0,.16,.32,.48,...
+/27	32		30		255.255.255.224		.0,.32,.64,.96,...
+/26	64		62		255.255.255.192		.0,.64,.128,.192
+/25	128		126		255.255.255.128		.0,.128
+/24	256		254		255.255.255.0
+/23	512		510		255.255.254.0
+/22	1024		1022		255.255.252.0
+/21	2048		2046		255.255.248.0
+/20	4096		4094		255.255.240.0
+/19	8192		8190		255.255.224.0
+/18	16384		16382		255.255.192.0
+/17	32768		32766		255.255.128.0
+/16	65536		65534		255.255.0.0
