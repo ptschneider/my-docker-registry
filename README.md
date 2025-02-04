@@ -1,6 +1,6 @@
 # docker-registry-cache
 
-N.B. see newer repo 'my-ctr-dns' which uses containerd & nerdctl instead of docker & docker-compose. Shows how to setup local image registry too, not just bind9 config.
+<b>N.B. see newer repo 'my-ctr-dns' which uses containerd & nerdctl instead of docker & docker-compose. Shows how to setup local image registry too, not just bind9 config.</b>
 
 ## Background
 
